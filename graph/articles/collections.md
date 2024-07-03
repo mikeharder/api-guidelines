@@ -329,6 +329,10 @@ If there's an entity type `foo` that has a collection of `bar`s:
 
 ```xml
 <EntityType Name="foo">
+  <Key>
+    <PropertyRef Name="id" />
+  </Key>
+  <Property Name="id" Type="Edm.String" Nullable="false" />
   <Property Name="bars" Type="Collection(self.bar)" />
 </EntityType>
 
@@ -338,9 +342,12 @@ If there's an entity type `foo` that has a collection of `bar`s:
 </ComplexType>
 ```
 and a scenario arises that requires, for example, to remove individual `bar`s from the collection, the model can be updated to have two collections side-by-side:
-
 ```diff
 <EntityType Name="foo">
+  <Key>
+    <PropertyRef Name="id" />
+  </Key>
+  <Property Name="id" Type="Edm.String" Nullable="false" />
   <Property Name="bars" Type="Collection(self.bar)" />
 + <Property Name="barsAsEntities" Type="Collection(self.barAsEntity)" />
 </EntityType>
@@ -357,6 +364,12 @@ and a scenario arises that requires, for example, to remove individual `bar`s fr
 + <Property Name="prop1" Type="Edm.String" />
 + <Property Name="prop2" Type="Edm.String" />
 +</EntityType>
+```
+Clients will now be able to refer to individual `bar`s using `prop1` as a key, and they can now remove those `bar`s using `DELETE` requests:
+```http
+DELETE /foos/{fooId}/bars/{some_prop1}
+```
+```json
 ```
 
 ### 11.2 TODO $select trickery
