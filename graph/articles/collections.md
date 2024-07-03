@@ -325,4 +325,38 @@ Sometimes, structural collection properties are added to a type and then scenari
 
 ### 11.1 TODO side-by-side
 
+If there's an entity type `foo` that has a collection of `bar`s:
+
+```xml
+<EntityType Name="foo">
+  <Property Name="bars" Type="Collection(self.bar)" />
+</EntityType>
+
+<ComplexType Name="bar">
+  <Property Name="prop1" Type="Edm.String" />
+  <Property Name="prop2" Type="Edm.String" />
+</ComplexType>
+```
+and a scenario arises that requires, for example, to remove individual `bar`s from the collection, the model can be updated to have two collections side-by-side:
+
+```diff
+<EntityType Name="foo">
+  <Property Name="bars" Type="Collection(self.bar)" />
++ <Property Name="barsAsEntities" Type="Collection(self.barAsEntity)" />
+</EntityType>
+
+<ComplexType Name="bar">
+  <Property Name="prop1" Type="Edm.String" />
+  <Property Name="prop2" Type="Edm.String" />
+</ComplexType>
+
++<EntityType Name="barAsEntity">
++ <Key>
++   <PropertyRef Name="prop1" />
++ </Key>
++ <Property Name="prop1" Type="Edm.String" />
++ <Property Name="prop2" Type="Edm.String" />
++</EntityType>
+```
+
 ### 11.2 TODO $select trickery
