@@ -320,3 +320,9 @@ Content-Type: application/json
 ## 11. Collections of structural types (complex types or primitive types)
 
 Collections of entity types are generally preferable to collections of structual types because collections of structural types must be updated as a single unit, meaning that they are overwritten entirely by new contents, rather than be updated relative to the existing contents. 
+
+Sometimes, structural collection properties are added to a type and then scenarios are discovered later that require a collection of entity types. In these cases, there are two options forward:
+
+### 11.1 TODO side-by-side
+
+### 11.2 TODO $select trickery
