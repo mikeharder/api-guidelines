@@ -320,12 +320,8 @@ Content-Type: application/json
 ## 11. Collections of structural types (complex types or primitive types)
 
 Collections of entity types are generally preferable to collections of structual types because collections of structural types must be updated as a single unit, meaning that they are overwritten entirely by new contents, rather than be updated relative to the existing contents. 
-
-Sometimes, structural collection properties are added to a type and then scenarios are discovered later that require a collection of entity types. In these cases, there are two options forward:
-
-### 11.1 Side-by-side collection properties
-
-If there's an entity type `foo` that has a collection of `bar`s:
+Sometimes, structural collection properties are added to a type and then scenarios are discovered later that require a collection of entity types.
+Take the following model with an entity type `foo` that has a collection of `bar`s:
 
 ```xml
 <EntityType Name="foo">
@@ -341,7 +337,12 @@ If there's an entity type `foo` that has a collection of `bar`s:
   <Property Name="prop2" Type="Edm.String" />
 </ComplexType>
 ```
-and a scenario arises that requires, for example, to remove individual `bar`s from the collection, the model can be updated to have two collections side-by-side:
+and a scenario arises that requires, for example, to remove individual `bar`s from the collection. 
+There are two options forward:
+
+### 11.1 Side-by-side collection properties
+
+The model can be updated to have two collections side-by-side:
 ```diff
 <EntityType Name="foo">
   <Key>
@@ -407,7 +408,7 @@ HTTP/1.1 400 Bad Request
 TODO should this be a 409 conflict instead?
 TODO implement this in WebApi
 
-### 11.2 TODO $select trickery
+### 11.2 `$select` overloading
 
 
 
