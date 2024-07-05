@@ -431,8 +431,31 @@ The model can be updated to simply switch the complex type for an entity type:
 -</ComplexType>
 +</EntityType>
 ```
+To maintain backwards compatibility **and** compliance with the OData standard, there are several semantic changes that the workload must address:
+1. Existing clients would have been able to `$select` the `bars` property.
+Now that `bars` is a navigation property, the [OData standard](https://docs.oasis-open.org/odata/odata/v4.01/odata-v4.01-part2-url-conventions.html#_Toc31361040) specifies that its navigation link be returned when it is `$selected`:
 
+> If the select item is a navigation property, then the corresponding navigation link is represented in the response.
 
+Because the previous behavior for `$select=bars` was to include the collection in the response, and because the standard dictates that the navigation link be included in the response, the new behavior is to include both:
+
+```http
+GET /foos/{fooId}?$select=bars
+```
+```http
+200 OK
+{
+  "id": "{fooId}",
+  "bars": [
+    {
+      "prop1": "some value",
+      "prop2": "another value"
+    },
+    ...
+  ]
+  "bars@odata.navigationLink": "/foos('{fooId}')/bars"
+}
+```
 
 
 
