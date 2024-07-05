@@ -323,7 +323,7 @@ Collections of entity types are generally preferable to collections of structual
 
 Sometimes, structural collection properties are added to a type and then scenarios are discovered later that require a collection of entity types. In these cases, there are two options forward:
 
-### 11.1 TODO side-by-side
+### 11.1 Side-by-side collection properties
 
 If there's an entity type `foo` that has a collection of `bar`s:
 
