@@ -457,6 +457,8 @@ GET /foos/{fooId}?$select=bars
 }
 ```
 
+2. The default behavior for structural collections is to include them in the response payload for their containing entity. If this was the behavior of `foo` before, it must be preserved by **auto-expanding** the `bars` property now that it is a navigation property (because the default behavior for navigation properties is to **not** expand them).
+3. Structural collections are updated using `PATCH` requests to replace the entire contents of the collection. The new navigation property must preserve this behavior.
 
 
 
