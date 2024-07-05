@@ -338,7 +338,7 @@ Take the following model with an entity type `foo` that has a collection of `bar
 </ComplexType>
 ```
 and a scenario arises that requires, for example, to remove individual `bar`s from the collection. 
-There are two options forward:
+There are two options forward: //// TODO do we want to offer both options, or just one?
 
 ### 11.1 Side-by-side collection properties
 
@@ -460,93 +460,4 @@ GET /foos/{fooId}?$select=bars
 2. The default behavior for structural collections is to include them in the response payload for their containing entity. If this was the behavior of `foo` before, it must be preserved by **auto-expanding** the `bars` property now that it is a navigation property (because the default behavior for navigation properties is to **not** expand them).
 3. Structural collections are updated using `PATCH` requests to replace the entire contents of the collection. The new navigation property must preserve this behavior.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+TODO implement this in webapi
