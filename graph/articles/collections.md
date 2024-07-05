@@ -369,7 +369,95 @@ Clients will now be able to refer to individual `bar`s using `prop1` as a key, a
 ```http
 DELETE /foos/{fooId}/bars/{some_prop1}
 ```
-```json
+```http
+HTTP/1.1 204 No Content
+```
+The expectation is that `bars` and `barsAsEntities` are treated as two "views" into the same data.
+To meet this expectation, workloads must:
+1. Keep the properties consistent between `bar` and `barAsEntity`.
+Any changes to one type must be reflected in the other type.
+2. Reject requests that update both collections at the same time.
+A request that adds an item to `barsAsEntities` while replacing the content of `bars` must rejected with a `400`, for example:
+```http
+PATCH /foos/{fooId}
+{
+  "bars": [
+    {
+      "prop1": "some value",
+      "prop2": "another value"
+    }
+  ],
+  "barsAsEntities@delta": [
+    {
+      "prop1": "a key value",
+      "prop2": "some new value"
+    }
+  ]
+}
+```
+```http
+HTTP/1.1 400 Bad Request
+{
+  "error": {
+    "code": "badRequest",
+    "message": "'bars' and 'barsAsEntities' cannot be updated in the same request.",
+}
 ```
 
+TODO should this be a 409 conflict instead?
+TODO implement this in WebApi
+
 ### 11.2 TODO $select trickery
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
