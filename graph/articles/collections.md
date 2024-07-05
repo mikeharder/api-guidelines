@@ -350,7 +350,7 @@ The model can be updated to have two collections side-by-side:
   </Key>
   <Property Name="id" Type="Edm.String" Nullable="false" />
   <Property Name="bars" Type="Collection(self.bar)" />
-+ <Property Name="barsAsEntities" Type="Collection(self.barAsEntity)" />
++ <NavigationProperty Name="barsAsEntities" Type="Collection(self.barAsEntity)" ContainsTarget="true" />
 </EntityType>
 
 <ComplexType Name="bar">
@@ -409,6 +409,69 @@ TODO should this be a 409 conflict instead?
 TODO implement this in WebApi
 
 ### 11.2 `$select` overloading
+
+The model can be updated to simply switch the complex type for an entity type:
+```diff
+<EntityType Name="foo">
+  <Key>
+    <PropertyRef Name="id" />
+  </Key>
+  <Property Name="id" Type="Edm.String" Nullable="false" />
+- <Property Name="bars" Type="Collection(self.bar)" />
++ <NavigationProperty Name="bars" Type="Collection(self.bar)" ContainsTarget="true" />
+</EntityType>
+
+- <ComplexType Name="bar">
++ <EntityType Name="bar">
++ <Key>
++   <PropertyRef Name="prop1" />
++ </Key>
+  <Property Name="prop1" Type="Edm.String" />
+  <Property Name="prop2" Type="Edm.String" />
+-</ComplexType>
++</EntityType>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
